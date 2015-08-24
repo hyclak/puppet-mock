@@ -14,6 +14,7 @@ class mock (
 
   validate_re($ensure, [ '^present', '^absent' ])
   validate_bool($manage_group)
+  validate_bool($manage_epel)
 
   if $manage_group {
     group { 'mock':
