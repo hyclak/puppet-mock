@@ -53,6 +53,11 @@ describe 'mock' do
     it { should contain_package('mock').with_name('foo') }
   end
 
+  context 'manage_epel => false' do
+    let(:params) {{ :manage_epel => false}}
+    it { should_not contain_class('epel') }
+  end
+
   # Test verify_re parameters
   [
     'ensure',

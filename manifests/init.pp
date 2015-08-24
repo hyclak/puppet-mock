@@ -8,6 +8,7 @@ class mock (
   $group_gid = '135',
   $group_name = $mock::params::group_name,
   $package_name = $mock::params::package_name,
+  $manage_epel = true,
   $epel_repo_name = 'epel',
 ) inherits mock::params {
 
@@ -20,6 +21,14 @@ class mock (
       name    => $group_name,
       gid     => $group_gid,
       before  => Package['mock'],
+    }
+  }
+
+  if $manage_epel {
+    include epel
+  } else {
+    yumrepo { $epel_repo_name:
+      ensure => present,
     }
   }
 
