@@ -8,12 +8,11 @@ class mock (
   $group_gid = '135',
   $group_name = $mock::params::group_name,
   $package_name = $mock::params::package_name,
+  $epel_repo_name = 'epel',
 ) inherits mock::params {
 
   validate_re($ensure, [ '^present', '^absent' ])
   validate_bool($manage_group)
-
-  include epel
 
   if $manage_group {
     group { 'mock':
@@ -27,7 +26,7 @@ class mock (
   package { 'mock':
     ensure  => $ensure,
     name    => $package_name,
-    require => Yumrepo['epel'],
+    require => Yumrepo[$epel_repo_name],
   }
 
 }
